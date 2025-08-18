@@ -1,0 +1,11 @@
+fastapi
+pydantic
+langchain
+langchain-community
+langchain-core
+beautifulsoup4
+requests
+langextract
+uvicorn
+python-multipart
+ollama
