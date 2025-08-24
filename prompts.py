@@ -12,7 +12,10 @@ triage_prompt = ChatPromptTemplate.from_messages([
 - Analyze the sender, subject, and body to make your decision.
 - Use the specific categories provided below. Avoid using "Other" unless absolutely necessary.
 - A direct request or question in the email body should be an `action_item`.
-- Security alerts are always "High" urgency. Transaction alerts are "Medium".
+- **Attention/Urgency Rules:**
+  - **High:** Emails that require immediate attention. This includes security alerts (new logins, app connections), critical warnings, or direct, time-sensitive questions from known contacts.
+  - **Medium:** Emails that are important and require attention but are not time-sensitive. This includes invoices, bills, plan expiration warnings, and direct personal messages that are not urgent.
+  - **Low:** All other emails, including newsletters, promotions, and general notifications.
 
 **AVAILABLE CATEGORIES:**
 - "Transaction Alert": Notifications of funds transfers, payments, e-receipts (UOB, DBS, Grab, PayLah!).
