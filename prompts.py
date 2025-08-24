@@ -110,3 +110,13 @@ Classify the event into one of the following categories: 'Work Meeting', 'Person
 Return a single JSON object with the key 'category'."""),
     ("user", "Please categorize the following calendar event:\n\n{event_details}\n\nNow, provide the category as a JSON object.")
 ])
+
+synthesis_prompt = ChatPromptTemplate.from_messages([
+        ("system", """You are a personal chief of staff. Your task is to analyze a list of structured data items and write a concise, conversational summary. Do not just list the counts; create a brief, easy-to-read narrative that highlights important trends or specific items that require attention. Your tone should be professional yet friendly.
+
+The report you are generating is for: '{report_type}'."""),
+("user", """Here is the data for your report:
+{data_as_string}
+
+Now, please provide your narrative summary.""")
+])

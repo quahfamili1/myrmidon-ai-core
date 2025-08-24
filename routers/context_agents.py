@@ -5,11 +5,13 @@ from schemas import (
     TransactionRequest, TransactionResponse,
     WellnessSummaryRequest, WellnessSummaryResponse,
     HomeEventRequest, HomeEventResponse,
-    CalendarEventRequest, CalendarEventResponse
+    CalendarEventRequest, CalendarEventResponse,
+    SynthesisRequest, SynthesisResponse
 )
 from chains import (
     transaction_chain, wellness_chain,
-    home_event_chain, calendar_event_chain
+    home_event_chain, calendar_event_chain,
+    synthesis_chain
 )
 
 router = APIRouter(
@@ -75,3 +77,17 @@ def process_calendar_event_endpoint(request: CalendarEventRequest):
         }
     except json.JSONDecodeError:
         return {"error": f"Failed to parse LLM response as JSON. Output: {response.content}"}, 500
+
+@router.post("/synthesize_report", response_model=SynthesisResponse)
+def synthesize_report_endpoint(request: SynthesisRequest):
+    if synthesis_chain is None:
+        return {"error": "LLM synthesis_chain is not initialized."}, 500
+
+    data_as_string = json.dumps(request.data, indent=2)
+
+    report_text = synthesis_chain.invoke({
+        "report_type": request.report_type,
+        "data_as_string": data_as_string
+    })
+
+    return {"report_text": report_text}

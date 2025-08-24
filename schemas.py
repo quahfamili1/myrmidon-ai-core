@@ -77,3 +77,10 @@ class CalendarEventRequest(BaseModel):
 class CalendarEventResponse(BaseModel):
     category: str
     original_event: CalendarEventRequest
+
+class SynthesisRequest(BaseModel):
+    report_type: str
+    data: List[dict]
+
+class SynthesisResponse(BaseModel):
+    report_text: str
