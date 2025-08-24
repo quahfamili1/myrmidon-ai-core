@@ -3,7 +3,7 @@ from langchain_core.output_parsers import StrOutputParser
 from prompts import (
     chat_prompt, triage_prompt, ingestion_prompt,
     takeout_prompt, transaction_prompt, wellness_prompt,
-    home_event_prompt, calendar_event_prompt
+    home_event_prompt, calendar_event_prompt, synthesis_prompt
 )
 
 try:
@@ -20,6 +20,7 @@ try:
     wellness_chain = wellness_prompt | llm | StrOutputParser() # Expects a single string response
     home_event_chain = home_event_prompt | llm
     calendar_event_chain = calendar_event_prompt | llm
+    synthesis_chain = synthesis_prompt | llm | StrOutputParser()
 
     print("✅ LLM and chains are initialized successfully.")
 
@@ -34,3 +35,4 @@ except Exception as e:
     wellness_chain = None
     home_event_chain = None
     calendar_event_chain = None
+    synthesis_chain = None
